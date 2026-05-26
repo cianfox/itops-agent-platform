@@ -36,6 +36,7 @@ import remediationPolicyRoutes from './routes/remediationPolicyRoutes';
 import remediationExecutionRoutes from './routes/remediationExecutionRoutes';
 import backupRoutes from './routes/backupRoutes';
 import databaseRoutes from './routes/databaseRoutes';
+import knowledgeQAnythingRoutes from './routes/knowledgeQAnythingRoutes';
 import { schedulerService } from './services/schedulerService';
 import { reportService } from './services/reportService';
 import { copilotService } from './services/copilotService';
@@ -159,6 +160,7 @@ app.use('/api/remediation-policies', rateLimiter, remediationPolicyRoutes);
 app.use('/api/remediation-executions', rateLimiter, remediationExecutionRoutes);
 app.use('/api/backups', rateLimiter, backupRoutes);
 app.use('/api/database', rateLimiter, databaseRoutes);
+app.use('/api/knowledge/qanything', rateLimiter, knowledgeQAnythingRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

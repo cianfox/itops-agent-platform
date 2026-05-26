@@ -3,6 +3,7 @@ import db from '../models/database';
 import { logger } from '../utils/logger';
 import crypto from 'crypto';
 import { getApiKey, getModelId, getApiBase, buildApiEndpoint } from '../utils/apiConfig';
+import { qanythingService } from './qanythingService';
 
 interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
@@ -475,21 +476,41 @@ export async function executeAgentWithLLM(
 
   updateAgentStats(agentId);
 
-  const systemPrompt = agent.system_prompt || `你是一个专业的${agent.name || 'IT运维'}助手。`;
+  // 优先使用 QAnything 检索知识库
+  let knowledgeContext = '';
+  try {
+    if (qanythingService.isEnabled()) {
+      logger.info('🔍 Using QAnything for knowledge retrieval...');
+      knowledgeContext = await qanythingService.queryKnowledge(userInput, 5);
+    }
+  } catch (error) {
+    logger.warn('️ QAnything query failed, proceeding without knowledge context:', error);
+  }
+
+  // 构建增强 Prompt
+  let enhancedPrompt = agent.system_prompt || `你是一个专业的${agent.name || 'IT运维'}助手。`;
+  
+  if (knowledgeContext) {
+    enhancedPrompt += `\n\n【相关知识库内容】\n${knowledgeContext}\n\n`;
+    enhancedPrompt += '请基于以上知识库内容回答用户问题。如果知识库内容不足以回答问题，请结合你的专业知识进行补充。\n\n';
+  }
+
+  enhancedPrompt += `\n【用户问题】\n${userInput}`;
+
   const temperature = agent.temperature || 0.7;
   const model = agent.model || 'doubao-4o';
   const provider = getProviderForModel(model);
 
   if (provider === 'openai') {
     return await callOpenAIAPI(
-      systemPrompt,
+      enhancedPrompt,
       userInput,
       agent.name,
       temperature
     );
   } else {
     return await callDoubaoAPI(
-      systemPrompt,
+      enhancedPrompt,
       userInput,
       agent.name,
       temperature

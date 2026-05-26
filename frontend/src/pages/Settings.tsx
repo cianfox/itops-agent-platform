@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Key, Bell, Database, Shield, Loader2, CheckCircle2, AlertCircle, Sun, Moon, Lock } from 'lucide-react';
+import { Key, Bell, Database, Shield, Loader2, CheckCircle2, AlertCircle, Sun, Moon, Lock, BookOpen, Upload, FileText, Globe, Wifi } from 'lucide-react';
 import clsx from 'clsx';
 import { useTheme } from '../hooks/useTheme';
 import api from '../lib/api';
@@ -53,7 +53,106 @@ export default function Settings() {
       running: false
     }
   });
+
+  // QAnything 配置查询
+  useQuery({
+    queryKey: ['qanythingConfig'],
+    queryFn: async () => {
+      const res = await api.get('/api/knowledge/qanything/config');
+      if (res.data.data) {
+        setQanythingConfig(res.data.data);
+      }
+      return res.data.data;
+    },
+  });
+
+  // QAnything 配置保存
+  const qanythingConfigMutation = useMutation({
+    mutationFn: async (config: any) => {
+      const res = await api.post('/api/knowledge/qanything/config', config);
+      return res.data;
+    },
+    onMutate: () => {
+      setQanythingSaveStatus('saving');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['qanythingConfig'] });
+      setQanythingSaveStatus('saved');
+      setTimeout(() => setQanythingSaveStatus('idle'), 2000);
+    },
+    onError: () => {
+      setQanythingSaveStatus('error');
+      setTimeout(() => setQanythingSaveStatus('idle'), 3000);
+    },
+  });
+
+  // QAnything 连接测试
+  const qanythingTestMutation = useMutation({
+    mutationFn: async () => {
+      const res = await api.post('/api/knowledge/qanything/test');
+      return res.data;
+    },
+    onMutate: () => {
+      setQanythingTestStatus('testing');
+      setQanythingTestMessage('');
+    },
+    onSuccess: (data) => {
+      setQanythingTestStatus(data.success ? 'success' : 'error');
+      setQanythingTestMessage(data.message);
+    },
+    onError: (err: any) => {
+      setQanythingTestStatus('error');
+      setQanythingTestMessage(err.response?.data?.message || '连接失败');
+    },
+  });
+
+  // 文档上传
+  const uploadMutation = useMutation({
+    mutationFn: async (files: File[]) => {
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append('files', file);
+      });
+      const res = await api.post('/api/knowledge/qanything/upload-batch', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      return res.data;
+    },
+    onMutate: () => {
+      setUploadStatus('uploading');
+      setUploadMessage('');
+    },
+    onSuccess: (data) => {
+      setUploadStatus('success');
+      setUploadMessage(`成功上传 ${data.summary?.success || 0} 个文件，失败 ${data.summary?.failed || 0} 个`);
+      setUploadFiles([]);
+      setTimeout(() => setUploadStatus('idle'), 5000);
+    },
+    onError: (err: any) => {
+      setUploadStatus('error');
+      setUploadMessage(err.response?.data?.error || '上传失败');
+      setTimeout(() => setUploadStatus('idle'), 5000);
+    },
+  });
   const [notificationSaveStatus, setNotificationSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+
+  // QAnything 配置本地状态
+  const [qanythingConfig, setQanythingConfig] = useState({
+    enabled: false,
+    apiBase: '',
+    apiKey: '',
+    kbId: '',
+    mode: 'cloud' as 'cloud' | 'local',
+    topK: 5,
+  });
+  const [qanythingSaveStatus, setQanythingSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [qanythingTestStatus, setQanythingTestStatus] = useState<'idle' | 'testing' | 'success' | 'error'>('idle');
+  const [qanythingTestMessage, setQanythingTestMessage] = useState('');
+
+  // 文档上传状态
+  const [uploadFiles, setUploadFiles] = useState<File[]>([]);
+  const [uploadStatus, setUploadStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
+  const [uploadMessage, setUploadMessage] = useState('');
 
   // 如果是强制修改密码，自动切换到安全设置标签
   useEffect(() => {
@@ -247,7 +346,8 @@ export default function Settings() {
   };
 
   const tabs = [
-    { id: 'api', name: 'API配置', icon: Key },
+    { id: 'api', name: 'AI 模型', icon: Key },
+    { id: 'qanything', name: '知识库', icon: BookOpen },
     { id: 'notifications', name: '通知设置', icon: Bell },
     { id: 'database', name: '数据库', icon: Database },
     { id: 'security', name: '安全设置', icon: Shield },
@@ -517,6 +617,288 @@ export default function Settings() {
                           <Loader2 className="w-4 h-4 animate-spin" />
                         )}
                         保存配置
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'qanything' && (
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
+                      <BookOpen className="w-5 h-5" />
+                      知识库配置 (QAnything)
+                    </h3>
+                    <p className="text-sm text-text-secondary mb-6">
+                      对接 QAnything 知识库，支持 PDF/Word/Excel 等多种格式文档上传，自动解析并用于 Agent 检索增强。
+                    </p>
+                  </div>
+
+                  {/* 知识库连接配置 */}
+                  <div className="bg-background rounded-lg p-6">
+                    <h4 className="font-medium text-text-primary mb-4 flex items-center gap-2">
+                      <Globe className="w-4 h-4" />
+                      连接配置
+                    </h4>
+                    
+                    <div className="space-y-4">
+                      {/* 启用开关 */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-text-primary">启用 QAnything 知识库</p>
+                          <p className="text-xs text-text-secondary">启用后，Agent 执行时将优先检索 QAnything 知识库</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={qanythingConfig.enabled}
+                            onChange={(e) => setQanythingConfig({...qanythingConfig, enabled: e.target.checked})}
+                          />
+                          <div className="w-11 h-6 bg-border rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                        </label>
+                      </div>
+
+                      {/* 部署模式 */}
+                      <div>
+                        <label className="block text-sm font-medium text-text-secondary mb-2">部署模式</label>
+                        <div className="flex gap-3">
+                          <button
+                            onClick={() => setQanythingConfig({...qanythingConfig, mode: 'cloud'})}
+                            className={clsx(
+                              'flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all border',
+                              qanythingConfig.mode === 'cloud'
+                                ? 'bg-primary text-white border-primary'
+                                : 'bg-surface text-text-secondary border-border hover:border-primary/50'
+                            )}
+                          >
+                            ️ 云端 API
+                          </button>
+                          <button
+                            onClick={() => setQanythingConfig({...qanythingConfig, mode: 'local'})}
+                            className={clsx(
+                              'flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all border',
+                              qanythingConfig.mode === 'local'
+                                ? 'bg-primary text-white border-primary'
+                                : 'bg-surface text-text-secondary border-border hover:border-primary/50'
+                            )}
+                          >
+                             本地部署
+                          </button>
+                        </div>
+                        <p className="text-xs text-text-secondary mt-2">
+                          {qanythingConfig.mode === 'cloud' 
+                            ? '使用网易有道云端 QAnything API，需外网访问' 
+                            : '本地 Docker 部署，数据不出服务器，更安全'}
+                        </p>
+                      </div>
+
+                      {/* API 地址 */}
+                      <div>
+                        <label className="block text-sm font-medium text-text-secondary mb-2">API 地址</label>
+                        <input
+                          type="text"
+                          placeholder={qanythingConfig.mode === 'cloud' ? 'https://openapi.youdao.com/q_anything/api' : 'http://localhost:8777'}
+                          value={qanythingConfig.apiBase}
+                          onChange={(e) => setQanythingConfig({...qanythingConfig, apiBase: e.target.value})}
+                          className="w-full px-4 py-2 bg-surface border border-border rounded-lg text-text-primary focus:outline-none focus:border-primary"
+                        />
+                        <p className="text-xs text-text-secondary mt-1">
+                          {qanythingConfig.mode === 'cloud' 
+                            ? '云端 API 地址: https://openapi.youdao.com/q_anything/api' 
+                            : '本地部署默认地址: http://localhost:8777'}
+                        </p>
+                      </div>
+
+                      {/* API 密钥 */}
+                      <div>
+                        <label className="block text-sm font-medium text-text-secondary mb-2">
+                          {qanythingConfig.mode === 'cloud' ? '管理秘钥' : 'API Key'}
+                        </label>
+                        <input
+                          type="password"
+                          placeholder={qanythingConfig.mode === 'cloud' ? '从 QAnything 管理后台获取' : '本地部署通常不需要'}
+                          value={qanythingConfig.apiKey}
+                          onChange={(e) => setQanythingConfig({...qanythingConfig, apiKey: e.target.value})}
+                          className="w-full px-4 py-2 bg-surface border border-border rounded-lg text-text-primary focus:outline-none focus:border-primary"
+                        />
+                      </div>
+
+                      {/* 知识库 ID */}
+                      <div>
+                        <label className="block text-sm font-medium text-text-secondary mb-2">知识库 ID</label>
+                        <input
+                          type="text"
+                          placeholder="KBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_xxxxxx"
+                          value={qanythingConfig.kbId}
+                          onChange={(e) => setQanythingConfig({...qanythingConfig, kbId: e.target.value})}
+                          className="w-full px-4 py-2 bg-surface border border-border rounded-lg text-text-primary focus:outline-none focus:border-primary"
+                        />
+                        <p className="text-xs text-text-secondary mt-1">
+                          在 QAnything 管理后台创建知识库后获取 ID
+                        </p>
+                      </div>
+
+                      {/* 检索数量 */}
+                      <div>
+                        <label className="block text-sm font-medium text-text-secondary mb-2">
+                          每次检索返回的片段数
+                        </label>
+                        <input
+                          type="number"
+                          min="1"
+                          max="20"
+                          value={qanythingConfig.topK}
+                          onChange={(e) => setQanythingConfig({...qanythingConfig, topK: parseInt(e.target.value) || 5})}
+                          className="w-32 px-4 py-2 bg-surface border border-border rounded-lg text-text-primary focus:outline-none focus:border-primary"
+                        />
+                        <span className="text-xs text-text-secondary ml-2">默认 5，范围 1-20</span>
+                      </div>
+
+                      {/* 测试连接 */}
+                      <div className="flex items-center gap-3 pt-2">
+                        <button
+                          onClick={() => qanythingTestMutation.mutate()}
+                          disabled={qanythingTestStatus === 'testing'}
+                          className="px-4 py-2 bg-surface border border-border text-text-primary rounded-lg hover:bg-surface/80 transition-all disabled:opacity-50 flex items-center gap-2"
+                        >
+                          {qanythingTestStatus === 'testing' ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <Wifi className="w-4 h-4" />
+                          )}
+                          测试连接
+                        </button>
+                        
+                        {qanythingTestStatus === 'success' && (
+                          <span className="text-sm text-status-success flex items-center gap-1">
+                            <CheckCircle2 className="w-4 h-4" />
+                            {qanythingTestMessage}
+                          </span>
+                        )}
+                        {qanythingTestStatus === 'error' && (
+                          <span className="text-sm text-status-failed flex items-center gap-1">
+                            <AlertCircle className="w-4 h-4" />
+                            {qanythingTestMessage}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* 保存配置 */}
+                      <div className="flex items-center justify-between pt-4 border-t border-border">
+                        <div className="flex items-center gap-2">
+                          {qanythingSaveStatus === 'saving' && (
+                            <Loader2 className="w-4 h-4 animate-spin text-text-secondary" />
+                          )}
+                          {qanythingSaveStatus === 'saved' && (
+                            <p className="text-xs text-status-success flex items-center gap-1">
+                              <CheckCircle2 className="w-3 h-3" />
+                              已保存
+                            </p>
+                          )}
+                          {qanythingSaveStatus === 'error' && (
+                            <p className="text-xs text-status-failed flex items-center gap-1">
+                              <AlertCircle className="w-3 h-3" />
+                              保存失败
+                            </p>
+                          )}
+                        </div>
+                        <button
+                          onClick={() => qanythingConfigMutation.mutate(qanythingConfig)}
+                          disabled={qanythingSaveStatus === 'saving'}
+                          className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                        >
+                          {qanythingSaveStatus === 'saving' && (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          )}
+                          保存配置
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 文档上传 */}
+                  <div className="bg-background rounded-lg p-6">
+                    <h4 className="font-medium text-text-primary mb-4 flex items-center gap-2">
+                      <Upload className="w-4 h-4" />
+                      上传文档到知识库
+                    </h4>
+                    
+                    <div className="space-y-4">
+                      <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
+                        <FileText className="w-12 h-12 mx-auto text-text-secondary mb-3" />
+                        <p className="text-sm text-text-primary mb-1">拖拽文件到此处，或点击选择文件</p>
+                        <p className="text-xs text-text-secondary">支持 PDF/Word/Excel/PPT/Markdown/TXT/CSV/图片</p>
+                        <input
+                          type="file"
+                          multiple
+                          accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.md,.txt,.csv,.jpg,.jpeg,.png"
+                          onChange={(e) => {
+                            if (e.target.files) {
+                              setUploadFiles(Array.from(e.target.files));
+                            }
+                          }}
+                          className="hidden"
+                          id="file-upload"
+                        />
+                        <label
+                          htmlFor="file-upload"
+                          className="inline-block mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all cursor-pointer text-sm"
+                        >
+                          选择文件
+                        </label>
+                      </div>
+
+                      {/* 已选文件列表 */}
+                      {uploadFiles.length > 0 && (
+                        <div className="space-y-2">
+                          <p className="text-sm font-medium text-text-primary">已选择 {uploadFiles.length} 个文件:</p>
+                          <div className="max-h-40 overflow-y-auto space-y-1">
+                            {uploadFiles.map((file, index) => (
+                              <div key={index} className="flex items-center justify-between p-2 bg-surface rounded-lg">
+                                <span className="text-sm text-text-secondary truncate">{file.name}</span>
+                                <span className="text-xs text-text-secondary">
+                                  {(file.size / 1024).toFixed(1)} KB
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* 上传状态 */}
+                      {uploadStatus !== 'idle' && (
+                        <div className={clsx(
+                          'p-3 rounded-lg flex items-center gap-2',
+                          uploadStatus === 'uploading' && 'bg-blue-500/10 text-blue-400',
+                          uploadStatus === 'success' && 'bg-green-500/10 text-green-400',
+                          uploadStatus === 'error' && 'bg-red-500/10 text-red-400'
+                        )}>
+                          {uploadStatus === 'uploading' && <Loader2 className="w-4 h-4 animate-spin" />}
+                          {uploadStatus === 'success' && <CheckCircle2 className="w-4 h-4" />}
+                          {uploadStatus === 'error' && <AlertCircle className="w-4 h-4" />}
+                          <span className="text-sm">{uploadMessage}</span>
+                        </div>
+                      )}
+
+                      {/* 上传按钮 */}
+                      <button
+                        onClick={() => uploadMutation.mutate(uploadFiles)}
+                        disabled={uploadFiles.length === 0 || uploadStatus === 'uploading'}
+                        className="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      >
+                        {uploadStatus === 'uploading' ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            上传中...
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="w-4 h-4" />
+                            上传到知识库
+                          </>
+                        )}
                       </button>
                     </div>
                   </div>
