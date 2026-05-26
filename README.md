@@ -129,7 +129,7 @@ cd frontend && npm install && npm run dev
 
 > ⚠️ 首次登录后系统会强制要求修改密码
 
-<img alt="image" src="https://github.com/user-attachments/assets/befe8ad6-b39f-4881-8b9b-e4f17356767a" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/a0f8974f7fd227711675a3075121fd5a.png" style="max-width: 100%; height: auto;" />
 
 ## 功能模块
 
@@ -146,7 +146,7 @@ cd frontend && npm install && npm run dev
 - 窗口大小自适应
 - 连接状态可视化
 
-<img alt="image" src="https://github.com/user-attachments/assets/a81f3e5c-8b6f-4e9c-9a1d-2f3c4d5e6f7a" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/fdsfz.png" style="max-width: 100%; height: auto;" />
 
 ### 主机管理
 
@@ -191,7 +191,7 @@ cd frontend && npm install && npm run dev
 - 支持暂停/继续/取消
 - 自动生成 Markdown 执行报告
 
-<img alt="image" src="https://github.com/user-attachments/assets/aa036b31-3c10-4322-a4d0-fb7e7028ddaf" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/yyy.png" style="max-width: 100%; height: auto;" />
 
 ### 告警中心
 
@@ -213,7 +213,7 @@ cd frontend && npm install && npm run dev
 - 自动注入 LLM 对话上下文
 - 批量导入/导出
 
-<img alt="image" src="https://github.com/user-attachments/assets/ef28798f-8819-4aa4-b254-0b9212982620" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/ttt.png" style="max-width: 100%; height: auto;" />
 
 ### AI Copilot
 
@@ -221,7 +221,7 @@ cd frontend && npm install && npm run dev
 - 自动感知系统告警、服务器、任务状态
 - 基于规则的快速响应 + LLM 深度分析
 
-<img alt="image" src="https://github.com/user-attachments/assets/5d67682e-f5f7-413e-b677-106aea1dfb33" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/iii.png" style="max-width: 100%; height: auto;" />
 
 ### 定时任务
 
