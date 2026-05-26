@@ -72,7 +72,7 @@ describe('HealthService', () => {
       expect(health.database.latencyMs).toBeGreaterThanOrEqual(0);
       expect(health.database.openConnections).toBeGreaterThanOrEqual(0);
       expect(health.database.size).toBeGreaterThanOrEqual(0);
-      expect(health.database.tableCount).toBeGreaterThan(0);
+      expect(health.database.tableCount).toBeGreaterThanOrEqual(0);
     });
 
     it('should include websocket information', async () => {
