@@ -63,8 +63,8 @@ const navigationGroups = [
     icon: ServerCog,
     items: [
       { name: '服务器管理', href: '/servers', icon: Server },
-      { name: 'SSH 密钥', href: '/ssh-keys', icon: Key },
       { name: '网络设备', href: '/network-devices', icon: Network },
+      { name: '认证凭证', href: '/ssh-keys', icon: Key },
       { name: 'Web 终端', href: '/terminal', icon: Terminal },
       { name: '远程桌面', href: '/remote-desktop', icon: MonitorPlay },
     ]
