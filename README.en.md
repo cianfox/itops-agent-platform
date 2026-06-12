@@ -272,7 +272,7 @@ System overview displaying servers, alerts, tasks, and other core metrics.
 - Pause/Resume/Cancel support
 - Automatic Markdown execution report generation
 
-<img alt="image" src="docs-assets/images/q (2).png" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/images/q (2).jpg" style="max-width: 100%; height: auto;" />
 
 ### Alert Center
 
@@ -308,7 +308,7 @@ System overview displaying servers, alerts, tasks, and other core metrics.
 - Backup history management and cleanup policies
 - Scheduled automatic backup support
 
-<img alt="image" src="docs-assets/images/q (8).png" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/images/q (9).png" style="max-width: 100%; height: auto;" />
 
 ### Knowledge Base
 

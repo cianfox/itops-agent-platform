@@ -274,7 +274,7 @@ npm run dev
 - 支持暂停/继续/取消
 - 自动生成 Markdown 执行报告
 
-<img alt="image" src="docs-assets/images/q (2).png" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/images/q (2).jpg" style="max-width: 100%; height: auto;" />
 
 ### 告警中心
 
@@ -313,7 +313,7 @@ npm run dev
 - 备份历史管理和清理策略
 - 支持定时自动备份
 
-<img alt="image" src="docs-assets/images/q (8).png" style="max-width: 100%; height: auto;" />
+<img alt="image" src="docs-assets/images/q (9).png" style="max-width: 100%; height: auto;" />
 
 ### 知识库
 
