@@ -55,6 +55,8 @@ graph TB
 
 - **Multi-Agent Collaboration** — 9 preset IT operations Agents with custom creation support, covering alerts, diagnostics, inspection, compliance, and more
 - **Visual Workflow** — Drag-and-drop orchestration with serial/parallel/conditional branching and real-time WebSocket progress pushing
+- **HITL Human Approval** — Workflow supports approval nodes, pauses execution for human confirmation, supports auto-reject/wait on timeout, approval requests auto-push to WeCom/DingTalk/Email
+- **AI Intelligent Remediation Loop** — Alerts trigger AI analysis → Auto-generate structured remediation commands → Approval node confirmation → Auto-execute remediation → Verify results and feedback
 - **Web SSH Terminal** — Interactive remote terminal based on xterm.js with real-time I/O, window auto-resize, and bidirectional communication
 - **Host Management Enhancement** — Multi-level group tree structure, CSV/JSON bulk import, automatic SSH information collection (CPU/Memory/Disk/OS)
 - **Data Import/Export** — Bulk server import via CSV/JSON, export alerts, audit logs, and report data
@@ -344,6 +346,25 @@ System overview displaying servers, alerts, tasks, and other core metrics.
 - Automatic Markdown report generation from workflow execution
 - Report template management
 - Report viewing and download
+
+### Approval Center (HITL)
+
+- Workflow supports human approval nodes, can be drag-and-dropped in workflow editor
+- Approval node configuration: approval description, timeout, timeout behavior (auto-reject/continue waiting)
+- Unified approval center page showing pending, approved, and rejected approval requests
+- Approval actions: approve/reject (with reason required)
+- Approval requests auto-push notifications (WeCom, DingTalk, Email)
+- Support quick approval from mobile devices
+- WebSocket real-time push of approval status changes
+
+### AI Remediation Records
+
+- AI analysis of alerts auto-generates structured remediation commands (JSON format)
+- Auto-creates remediation workflow: [Approval Node] → [Execute Remediation Agent Node]
+- Auto-sets approval timeout based on risk level (low: 30min, medium: 1hr, high: 2hr)
+- Displays complete remediation process: diagnosis report, remediation commands, risk level, execution status
+- Supports viewing execution results and error information
+- Deep integration with alert and task systems
 
 ## Project Structure
 
