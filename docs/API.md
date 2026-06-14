@@ -1037,6 +1037,612 @@ GET /health
 - `notification:new`
 - `remediation:executed` - 修复执行通知
 
+## SSH 密钥管理
+
+### 获取密钥列表
+
+```http
+GET /api/ssh-keys
+Authorization: Bearer <token>
+```
+
+### 获取单个密钥
+
+```http
+GET /api/ssh-keys/:id
+Authorization: Bearer <token>
+```
+
+### 获取密钥使用情况
+
+```http
+GET /api/ssh-keys/:id/usage
+Authorization: Bearer <token>
+```
+
+### 创建密钥
+
+```http
+POST /api/ssh-keys
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "name": "生产服务器密钥",
+  "privateKey": "-----BEGIN OPENSSH PRIVATE KEY-----...",
+  "passphrase": "optional-key-password"
+}
+```
+
+### 更新密钥
+
+```http
+PUT /api/ssh-keys/:id
+Authorization: Bearer <token>
+```
+
+### 删除密钥
+
+```http
+DELETE /api/ssh-keys/:id
+Authorization: Bearer <token>
+```
+
+## 网络设备管理
+
+### 获取设备列表
+
+```http
+GET /api/network-devices
+Authorization: Bearer <token>
+```
+
+### 获取单个设备
+
+```http
+GET /api/network-devices/:id
+Authorization: Bearer <token>
+```
+
+### 创建设备
+
+```http
+POST /api/network-devices
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "name": "核心交换机",
+  "host": "192.168.1.1",
+  "deviceType": "switch",
+  "vendor": "huawei",
+  "username": "admin",
+  "password": "password"
+}
+```
+
+### 更新设备
+
+```http
+PUT /api/network-devices/:id
+Authorization: Bearer <token>
+```
+
+### 删除设备
+
+```http
+DELETE /api/network-devices/:id
+Authorization: Bearer <token>
+```
+
+### 测试设备连接
+
+```http
+POST /api/network-devices/test-connection
+Authorization: Bearer <token>
+```
+
+### 执行设备巡检
+
+```http
+POST /api/network-devices/:id/inspect
+Authorization: Bearer <token>
+```
+
+### 批量巡检
+
+```http
+POST /api/network-devices/batch-inspect
+Authorization: Bearer <token>
+```
+
+### SNMP 巡检
+
+```http
+POST /api/network-devices/:id/inspect-snmp
+Authorization: Bearer <token>
+```
+
+### 获取巡检历史
+
+```http
+GET /api/network-devices/:id/history
+Authorization: Bearer <token>
+```
+
+### 获取巡检详情
+
+```http
+GET /api/network-devices/history/:inspectionId
+Authorization: Bearer <token>
+```
+
+### 生成巡检命令
+
+```http
+POST /api/network-devices/:id/generate-commands
+Authorization: Bearer <token>
+```
+
+### 分析巡检输出
+
+```http
+POST /api/network-devices/analyze-output
+Authorization: Bearer <token>
+```
+
+## 网络高级功能
+
+```http
+GET    /api/network-advanced          # 获取高级功能列表
+POST   /api/network-advanced          # 创建高级功能配置
+GET    /api/network-advanced/:id      # 获取配置详情
+PUT    /api/network-advanced/:id      # 更新配置
+DELETE /api/network-advanced/:id      # 删除配置
+```
+
+## 网络发现
+
+```http
+GET    /api/network-discovery             # 获取发现任务列表
+POST   /api/network-discovery             # 创建发现任务
+GET    /api/network-discovery/:id         # 获取发现任务详情
+PUT    /api/network-discovery/:id         # 更新发现任务
+DELETE /api/network-discovery/:id         # 删除发现任务
+POST   /api/network-discovery/:id/start   # 启动发现
+POST   /api/network-discovery/:id/stop    # 停止发现
+```
+
+## SNMP 管理
+
+### 获取 SNMP 配置列表
+
+```http
+GET /api/snmp
+Authorization: Bearer <token>
+```
+
+### 创建 SNMP 配置
+
+```http
+POST /api/snmp
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "name": "设备SNMP配置",
+  "host": "192.168.1.1",
+  "community": "public",
+  "version": "2c",
+  "port": 161
+}
+```
+
+### 获取 SNMP 配置详情
+
+```http
+GET /api/snmp/:id
+Authorization: Bearer <token>
+```
+
+### 更新 SNMP 配置
+
+```http
+PUT /api/snmp/:id
+Authorization: Bearer <token>
+```
+
+### 删除 SNMP 配置
+
+```http
+DELETE /api/snmp/:id
+Authorization: Bearer <token>
+```
+
+### 执行 SNMP 查询
+
+```http
+POST /api/snmp/:id/query
+Authorization: Bearer <token>
+```
+
+### 获取 SNMP Trap 日志
+
+```http
+GET /api/snmp/traps
+Authorization: Bearer <token>
+```
+
+### 获取 OID 注册表
+
+```http
+GET /api/snmp/oids
+Authorization: Bearer <token>
+```
+
+## 网络拓扑
+
+### 获取拓扑数据
+
+```http
+GET /api/topology
+Authorization: Bearer <token>
+```
+
+### 获取拓扑节点
+
+```http
+GET /api/topology/nodes
+Authorization: Bearer <token>
+```
+
+### 获取拓扑边
+
+```http
+GET /api/topology/edges
+Authorization: Bearer <token>
+```
+
+### 创建拓扑节点
+
+```http
+POST /api/topology/nodes
+Authorization: Bearer <token>
+```
+
+### 更新拓扑节点
+
+```http
+PUT /api/topology/nodes/:id
+Authorization: Bearer <token>
+```
+
+### 删除拓扑节点
+
+```http
+DELETE /api/topology/nodes/:id
+Authorization: Bearer <token>
+```
+
+## 变更管理
+
+### 获取变更记录列表
+
+```http
+GET /api/changes
+Authorization: Bearer <token>
+```
+
+### 创建变更记录
+
+```http
+POST /api/changes
+Authorization: Bearer <token>
+```
+
+### 获取变更详情
+
+```http
+GET /api/changes/:id
+Authorization: Bearer <token>
+```
+
+### 更新变更记录
+
+```http
+PUT /api/changes/:id
+Authorization: Bearer <token>
+```
+
+## AI 模型管理
+
+### 获取模型列表
+
+```http
+GET /api/ai-models
+Authorization: Bearer <token>
+```
+
+### 获取默认模型
+
+```http
+GET /api/ai-models/default
+Authorization: Bearer <token>
+```
+
+### 获取单个模型
+
+```http
+GET /api/ai-models/:id
+Authorization: Bearer <token>
+```
+
+### 创建模型
+
+```http
+POST /api/ai-models
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "name": "豆包-4o",
+  "provider": "doubao",
+  "modelId": "doubao-4o",
+  "apiKey": "your-api-key",
+  "apiBase": "https://ark.cn-beijing.volces.com/api/v3",
+  "isDefault": true
+}
+```
+
+### 更新模型
+
+```http
+PUT /api/ai-models/:id
+Authorization: Bearer <token>
+```
+
+### 重新排序模型
+
+```http
+PUT /api/ai-models/reorder
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "modelIds": ["id-1", "id-2", "id-3"]
+}
+```
+
+### 删除模型
+
+```http
+DELETE /api/ai-models/:id
+Authorization: Bearer <token>
+```
+
+### 测试模型连通性
+
+```http
+POST /api/ai-models/:id/test
+Authorization: Bearer <token>
+```
+
+## 审批中心（HITL）
+
+### 获取审批列表
+
+```http
+GET /api/approvals
+Authorization: Bearer <token>
+
+# 查询参数
+?status=pending
+&type=remediation
+&page=1&limit=20
+```
+
+### 获取待审批数量
+
+```http
+GET /api/approvals/pending/count
+Authorization: Bearer <token>
+```
+
+### 获取审批详情
+
+```http
+GET /api/approvals/:id
+Authorization: Bearer <token>
+```
+
+### 通过审批
+
+```http
+POST /api/approvals/:id/approve
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "comment": "已确认，可以执行"
+}
+```
+
+### 拒绝审批
+
+```http
+POST /api/approvals/:id/reject
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "reason": "需要进一步评估风险"
+}
+```
+
+## AI 智能修复
+
+### 获取修复记录列表
+
+```http
+GET /api/ai-remediations
+Authorization: Bearer <token>
+```
+
+### 获取单个修复记录
+
+```http
+GET /api/ai-remediations/:id
+Authorization: Bearer <token>
+```
+
+### 创建修复任务
+
+```http
+POST /api/ai-remediations
+Authorization: Bearer <token>
+```
+
+## 告警自动分析
+
+```http
+GET  /api/alert-auto/analysis          # 获取分析记录列表
+GET  /api/alert-auto/analysis/:id      # 获取分析详情
+POST /api/alert-auto/analyze           # 触发告警分析
+```
+
+## 告警关联分析
+
+```http
+GET    /api/alert-correlation/groups           # 获取关联组列表
+GET    /api/alert-correlation/groups/:id       # 获取关联组详情
+POST   /api/alert-correlation/groups           # 创建关联组
+DELETE /api/alert-correlation/groups/:id       # 删除关联组
+POST   /api/alert-correlation/analyze          # 触发关联分析
+```
+
+## 联动规则
+
+```http
+GET    /api/linkage/rules              # 获取联动规则列表
+POST   /api/linkage/rules              # 创建联动规则
+GET    /api/linkage/rules/:id          # 获取规则详情
+PUT    /api/linkage/rules/:id          # 更新规则
+DELETE /api/linkage/rules/:id          # 删除规则
+POST   /api/linkage/rules/:id/trigger  # 手动触发规则
+```
+
+## 数据库连接管理
+
+### 获取数据库连接列表
+
+```http
+GET /api/db-connections
+Authorization: Bearer <token>
+```
+
+### 创建数据库连接
+
+```http
+POST /api/db-connections
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "name": "生产数据库",
+  "type": "mysql",
+  "host": "192.168.1.100",
+  "port": 3306,
+  "username": "dbuser",
+  "password": "dbpassword",
+  "database": "production"
+}
+```
+
+### 获取连接详情
+
+```http
+GET /api/db-connections/:id
+Authorization: Bearer <token>
+```
+
+### 更新连接
+
+```http
+PUT /api/db-connections/:id
+Authorization: Bearer <token>
+```
+
+### 删除连接
+
+```http
+DELETE /api/db-connections/:id
+Authorization: Bearer <token>
+```
+
+### 测试连接
+
+```http
+POST /api/db-connections/:id/test
+Authorization: Bearer <token>
+```
+
+## VNC 远程桌面
+
+### 获取 VNC 会话列表
+
+```http
+GET /api/vnc/sessions
+Authorization: Bearer <token>
+```
+
+### 创建 VNC 会话
+
+```http
+POST /api/vnc/sessions
+Authorization: Bearer <token>
+```
+
+## QAnything 知识库
+
+```http
+GET    /api/knowledge/qanything/status         # 获取 QAnything 服务状态
+POST   /api/knowledge/qanything/sync           # 同步知识库到 QAnything
+GET    /api/knowledge/qanything/search         # 搜索 QAnything 知识库
+```
+
+## 服务器管理增强
+
+```http
+GET    /api/server-management/servers             # 获取增强服务器列表（含分组/信息）
+POST   /api/server-management/import              # 批量导入服务器
+GET    /api/server-management/template/servers    # 下载导入模板
+POST   /api/server-management/collect/:id         # 采集主机信息
+```
+
+## 命令执行历史
+
+```http
+GET    /api/server-commands                      # 获取命令执行历史
+GET    /api/server-commands/:id                   # 获取命令执行详情
+POST   /api/server-commands                       # 执行新命令
+```
+
+## 通知配置
+
+```http
+GET    /api/notification-config                   # 获取通知配置
+POST   /api/notification-config                   # 创建通知配置
+PUT    /api/notification-config/:id               # 更新通知配置
+DELETE /api/notification-config/:id               # 删除通知配置
+```
+
+## 修复审计
+
+```http
+GET    /api/remediation-audits                    # 获取修复审计记录
+GET    /api/remediation-audits/:id                # 获取审计详情
+```
+
 ## 错误响应
 
 所有API在出错时返回统一格式：

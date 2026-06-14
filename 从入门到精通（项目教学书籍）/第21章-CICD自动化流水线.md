@@ -193,7 +193,7 @@ name: Release (Build & Push Docker Images)
 on:
   push:
     tags:
-      - 'v*'                    # 打 v1.0.0 这样的 tag 时触发
+      - 'v*'                    # 打 v3.0.5 这样的 tag 时触发
   workflow_dispatch:
     inputs:
       push_to_registry:
@@ -336,7 +336,7 @@ env:
 **Release 流水线执行图：**
 
 ```
-tag push (v1.0.0) 或 workflow_dispatch
+tag push (v3.0.5) 或 workflow_dispatch
         │
         ▼
   ┌──────────────┐
@@ -365,7 +365,7 @@ tag push (v1.0.0) 或 workflow_dispatch
 
 | 标签 | 示例 | 用途 |
 |------|------|------|
-| 版本 tag | `IT_Onlin-ITOps-backend-v1.2.0` | 固定版本，不可变 |
+| 版本 tag | `IT_Onlin-ITOps-backend-v3.0.5` | 固定版本，不可变 |
 | latest | `IT_Onlin-ITOps-backend-latest` | 最新版本，每次覆盖 |
 | commit SHA | `IT_Onlin-ITOps-backend-abc1234` | 精确对应代码提交 |
 
@@ -484,8 +484,8 @@ git push origin feature/new-agent
 # 3. 打版本号 tag
 git checkout main
 git pull origin main
-git tag v1.2.0
-git push origin v1.2.0
+git tag v3.0.5
+git push origin v3.0.5
 
 # 4. Release 流水线自动触发
 # → Phase 1: 质量门禁通过
@@ -507,8 +507,8 @@ git push origin v1.2.0
 3. 选择分支 (main)
 4. 设置参数：
    - Push to Aliyun registry: ✅
-   - Backend image tag: v1.2.0-rc1
-   - Frontend image tag: v1.2.0-rc1
+   - Backend image tag: v3.0.5-rc1
+   - Frontend image tag: v3.0.5-rc1
 5. 点击 "Run workflow"
 ```
 

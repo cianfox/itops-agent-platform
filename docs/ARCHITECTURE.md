@@ -19,15 +19,15 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                      后端层 (Express.js)                     │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │                 API 路由层                             │  │
+│  │                 API 路由层（47 个模块）                 │  │
 │  ├──────────────────────────────────────────────────────┤  │
-│  │              业务逻辑服务层                            │  │
+│  │              业务逻辑服务层（50+ 个模块）               │  │
 │  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌─────────┐ │  │
 │  │  │ Agent    │ │ 工作流   │ │ SSH      │ │ 告警    │ │  │
 │  │  │ 服务     │ │ 执行     │ │ 服务     │ │ 处理    │ │  │
 │  │  └──────────┘ └──────────┘ └──────────┘ └─────────┘ │  │
 │  ├──────────────────────────────────────────────────────┤  │
-│  │              数据访问层 (SQLite)                       │  │
+│  │              数据访问层（SQLite, WAL 模式）            │  │
 │  └──────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────┘
                               │
@@ -259,6 +259,147 @@ CREATE TABLE alerts (
 - 4个预设定时任务（每日健康检查、每周合规检查、日志定期分析、数据库备份）
 - 自动执行指定工作流
 - 状态管理：启用/禁用、上次/下次运行时间
+
+### 9. 自动修复服务
+
+**文件位置**: `backend/src/services/remediationService.ts`, `backend/src/services/aiRemediationService.ts`
+
+**主要职责**:
+- 告警自动触发修复策略
+- 支持自定义修复工作流和审批流程
+- AI 分析告警后自动生成结构化修复命令
+- 根据风险等级自动设置审批超时时间
+
+### 10. 备份恢复服务
+
+**文件位置**: `backend/src/services/backupService.ts`
+
+**主要职责**:
+- 自动/手动数据库备份，支持 gzip 压缩
+- 备份完整性校验
+- 恢复后自动优雅重启
+- 备份历史管理和清理策略
+
+### 11. 数据导入导出
+
+**文件位置**: `backend/src/services/importExportService.ts`, `backend/src/services/serverImportService.ts`
+
+**主要职责**:
+- CSV/JSON 批量导入服务器列表
+- 智能去重、事务保证
+- 支持导出服务器、告警、审计日志、报表
+- 提供标准模板下载
+
+### 12. 网络设备管理
+
+**文件位置**: `backend/src/services/networkDeviceService.ts`, `backend/src/services/networkInspectionService.ts`, `backend/src/services/networkCommandGenerator.ts`, `backend/src/services/networkResultParser.ts`, `backend/src/services/vendorAdapter.ts`
+
+**主要职责**:
+- 网络设备 CRUD 管理
+- 多厂商命令适配（华为、华三、思科、锐捷等）
+- 自动巡检执行与结果解析
+- 巡检历史记录
+
+### 13. SNMP 服务
+
+**文件位置**: `backend/src/services/snmpService.ts`, `backend/src/services/snmpPollingService.ts`, `backend/src/services/snmpTrapService.ts`, `backend/src/services/snmpOidRegistry.ts`
+
+**主要职责**:
+- SNMP 设备轮询监控
+- SNMP Trap 告警接收
+- OID 注册表驱动的设备巡检
+- 设备信息采集
+
+### 14. 网络发现与拓扑
+
+**文件位置**: `backend/src/services/networkDiscoveryService.ts`, `backend/src/services/lldpDiscoveryService.ts`, `backend/src/services/topologyService.ts`
+
+**主要职责**:
+- LLDP 自动发现网络设备及连接关系
+- 拓扑图可视化数据
+- 服务/服务器依赖关系管理
+
+### 15. AI 模型管理
+
+**文件位置**: `backend/src/services/aiModelService.ts`
+
+**主要职责**:
+- AI 模型池统一管理（豆包、DeepSeek、通义千问、OpenAI、智谱、本地模型等）
+- 主备模型降级链
+- 每个提供商独立熔断器
+- 拖拽排序优先级、连通性测试
+
+### 16. 审批中心（HITL）
+
+**文件位置**: `backend/src/services/workflowExecutor.ts` (审批节点逻辑)
+
+**主要职责**:
+- 工作流审批节点，暂停执行等待人工确认
+- 超时自动拒绝/等待
+- 审批请求自动推送通知
+- WebSocket 实时推送审批状态
+
+### 17. 告警自动分析
+
+**文件位置**: `backend/src/services/alertAutoAnalyzer.ts`
+
+**主要职责**:
+- AI 驱动的告警智能诊断
+- 自动分析告警原因并生成诊断报告
+- 定时轮询待处理告警
+
+### 18. 告警关联分析
+
+**文件位置**: `backend/src/services/alertCorrelationService.ts`
+
+**主要职责**:
+- 将多条相关告警聚合为告警组
+- 时间窗口内关联分析
+- 减少告警碎片化
+
+### 19. 自监控服务
+
+**文件位置**: `backend/src/services/selfMonitorService.ts`
+
+**主要职责**:
+- 定期自检系统健康状态
+- 监控报告生成
+- 告警历史记录
+
+### 20. 凭证管理
+
+**文件位置**: `backend/src/services/credentialService.ts`
+
+**主要职责**:
+- 加密存储 API 密钥等敏感凭证
+- 从旧版明文配置迁移到加密存储
+- 密钥生命周期管理
+
+### 21. 队列服务
+
+**文件位置**: `backend/src/services/queueService.ts`, `backend/src/services/queueBullAdapter.ts`
+
+**主要职责**:
+- 异步任务执行队列
+- 任务优先级调度
+- 失败重试机制
+
+### 22. VNC 代理
+
+**文件位置**: `backend/src/services/vncProxyService.ts`
+
+**主要职责**:
+- WebSocket 代理转发 VNC 连接
+- 浏览器端远程桌面访问
+
+### 23. 变更管理
+
+**文件位置**: `backend/src/services/changeService.ts`
+
+**主要职责**:
+- 记录系统变更操作
+- 变更影响追踪
+- 变更审计
 
 ## 🔐 安全设计
 

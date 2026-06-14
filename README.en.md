@@ -17,7 +17,7 @@ Effective today, all new code submissions in this project will be open-sourced u
 
 Enterprise-grade IT Operations Multi-Agent Automation Platform — A fully open-source intelligent IT operations solution powered by Large Language Models.
 
-📝[Project Vision & Community Co-creation](项目愿景与社区共建.md) 📝[Project Learning Guide](从入门到精通（项目教学书籍）)
+📝[Project Vision & Community Co-creation](项目愿景与社区共建.md) 📝[Project Documentation Website](https://aiopsdoc-0mwug01t6.maozi.io/)
 
 [![CI](https://github.com/qinshihu/itops-agent-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/qinshihu/itops-agent-platform/actions/workflows/ci.yml)
 [![Release](https://github.com/qinshihu/itops-agent-platform/actions/workflows/release.yml/badge.svg)](https://github.com/qinshihu/itops-agent-platform/actions/workflows/release.yml)
@@ -39,10 +39,10 @@ ITOps Agent Platform is an enterprise-grade full-stack IT operations automation 
 ```mermaid
 graph TB
     Browser["Browser"] --> Nginx["Nginx Reverse Proxy"]
-    Nginx --> React["React Frontend<br/>30+ Pages | Zustand | @xyflow/react"]
-    Nginx --> Express["Express Backend<br/>31 Routes | 20+ Services | JWT Auth"]
+    Nginx --> React["React Frontend<br/>45+ Pages | Zustand | @xyflow/react"]
+    Nginx --> Express["Express Backend<br/>47 Routes | 50+ Services | JWT Auth"]
     React <-->|"WebSocket Real-time"| Express
-    Express --> SQLite[("SQLite Database<br/>39 Tables | AES-256 Encryption")]
+    Express --> SQLite[("SQLite Database<br/>44 Tables | AES-256 Encryption")]
     Express --> LLM["🤖 LLM Model Pool<br/>Doubao | DeepSeek | Qwen<br/>OpenAI | ZhiPu | Local Models"]
     Express --> SSH["🖥️ SSH Remote Servers"]
     Express --> Webhook["🚨 Alert Webhook<br/>Prometheus | Zabbix"]
@@ -396,15 +396,15 @@ System overview displaying servers, alerts, tasks, and other core metrics.
 │   └── src/
 │       ├── app.ts                  # Express application entry
 │       ├── models/database.ts      # SQLite database initialization and preset data
-│       ├── routes/                 # API routes (31 modules)
-│       ├── services/               # Business logic (20+ services)
+│       ├── routes/                 # API routes (47 modules)
+│       ├── services/               # Business logic (50+ services)
 │       ├── middleware/             # Middleware (6: auth, errorHandler, rateLimiter, validation, trace, commandFilter)
 │       ├── websocket/              # WebSocket real-time communication
 │       └── utils/                  # Utility functions
 ├── frontend/
 │   └── src/
 │       ├── App.tsx                 # React application entry
-│       ├── pages/                  # Page components (27)
+│       ├── pages/                  # Page components (45+)
 │       ├── components/             # Common components
 │       ├── contexts/               # React Context
 │       ├── hooks/                  # Custom Hooks

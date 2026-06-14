@@ -8,9 +8,9 @@
 | 项目类型 | 企业级全栈 Web 应用 |
 | 核心功能 | 可视化工作流编排多个 AI Agent，实现运维自动化 |
 | 版本 | v3.0.5 |
-| API 路由模块 | 39 个 |
-| 业务服务 | 20+ 个 |
-| 前端页面 | 30+ 个 |
+| API 路由模块 | 47 个 |
+| 业务服务 | 50+ 个 |
+| 前端页面 | 45+ 个 |
 | 数据库表 | 44 张 |
 
 ## 技术栈
@@ -218,6 +218,16 @@
 | `/api/ai-models` | AI 模型管理 | 是 |
 | `/api/health/summary` | 健康状态摘要（已认证） | 是 |
 | `/api/health/history` | 健康状态历史（已认证） | 是 |
+| `/api/health/monitor` | 自监控报告（已认证） | 是 |
+| `/api/health/monitor/alerts` | 自监控告警历史（已认证） | 是 |
+| `/api/ai-remediations` | AI 智能修复 | 是 |
+| `/api/approvals` | 审批中心（HITL） | 是 |
+| `/api/db-connections` | 数据库连接管理 | 是 |
+| `/api/network-advanced` | 网络高级功能 | 是 |
+| `/api/network-discovery` | 网络设备发现 | 是 |
+| `/api/alert-auto` | 告警自动分析 | 是 |
+| `/api/alert-correlation` | 告警关联分析 | 是 |
+| `/api/linkage` | 联动规则 | 是 |
 
 ## WebSocket 事件
 

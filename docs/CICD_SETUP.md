@@ -59,13 +59,13 @@ git push origin main
 ```bash
 # 1. 更新版本号（CHANGELOG.md, README.md 等）
 # 2. 打 tag 并推送
-git tag -a v3.0.3 -m "Release v3.0.3: description"
-git push origin v3.0.3
+git tag -a v3.0.5 -m "Release v3.0.5: description"
+git push origin v3.0.5
 
 # Release 流水线自动触发：
 # ✅ 质量门禁（Lint + 类型检查 + 测试 + 前端构建）
-# ✅ 构建后端 Docker 镜像 → 推送阿里云（v3.0.3 + latest）
-# ✅ 构建前端 Docker 镜像 → 推送阿里云（v3.0.3 + latest）
+# ✅ 构建后端 Docker 镜像 → 推送阿里云（v3.0.5 + latest）
+# ✅ 构建前端 Docker 镜像 → 推送阿里云（v3.0.5 + latest）
 # ✅ 自动生成 GitHub Release 和 Release Notes
 # ✅ 代码自动同步到 Gitee/Gitcode
 ```
@@ -92,7 +92,7 @@ git push origin main
          └──→ Mirror 流水线 ──→ Gitee 同步
                                └→ Gitcode 同步
 
-git push origin v3.0.3
+git push origin v3.0.5
          │
          └──→ Release 流水线 ──→ 质量门禁 ──→ 构建后端镜像 ──→ 推送阿里云
                                    │
@@ -108,7 +108,7 @@ git push origin v3.0.3
 | 触发方式 | 后端标签 | 前端标签 |
 |---------|---------|---------|
 | `push main` | `latest` + commit sha | `latest` + commit sha |
-| `push tag v3.0.3` | `v3.0.3` + `latest` + commit sha | `v3.0.3` + `latest` + commit sha |
+| `push tag v3.0.5` | `v3.0.5` + `latest` + commit sha | `v3.0.5` + `latest` + commit sha |
 | 手动触发 | 自定义标签 | 自定义标签 |
 
 ---

@@ -2,7 +2,7 @@
 
 > 版本：v1.0\
 > 日期：2026-06-14\
-> 适用版本：ITOps Agent Platform v3.0.6+
+> 适用版本：ITOps Agent Platform v3.0.5+
 
 ***
 

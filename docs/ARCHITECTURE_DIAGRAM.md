@@ -14,7 +14,7 @@ graph TB
 
     subgraph Frontend["🖥️ 前端 - React 18 + TypeScript"]
         direction TB
-        Pages["18 个页面组件"]
+        Pages["45+ 个页面组件"]
         Components["通用组件<br/>Layout | ChatWidget | MarkdownOutput"]
         State["状态管理<br/>Zustand | React Query"]
         WS_Client["WebSocket 客户端"]
@@ -24,11 +24,11 @@ graph TB
 
     subgraph Backend["⚙️ 后端 - Node.js + Express + TypeScript"]
         direction TB
-        API["API 路由层 (21 个模块)<br/>auth | agents | workflows | tasks | alerts<br/>servers | knowledge | copilot | reports<br/>users | audit | scheduled | settings | webhooks"]
-        Services["服务层 (15 个服务)<br/>agentExecutor | workflowExecutor | llmService<br/>sshService | reportService | schedulerService<br/>copilotService | enhancedRAGService<br/>encryptionService | notificationService<br/>multiAgentCollaboration | alertNoiseReduction<br/>rootCauseAnalysisService | auditService | tokenBlacklist"]
+        API["API 路由层 (47 个模块)<br/>auth | agents | workflows | tasks | alerts<br/>servers | knowledge | copilot | reports<br/>users | audit | settings | webhooks<br/>scheduled | scripts | notifications | dashboard<br/>alertMappings | alertNoise | remediation<br/>backup | database | importExport | network<br/>snmp | sshKey | topology | vnc | aiModel<br/>approval | alertAuto | alertCorrelation<br/>linkage | multiAgent | rootCauseAnalysis<br/>change | networkDiscovery | dbConnections<br/>serverGroup | serverManagement | serverCommand<br/>aiRemediation | knowledgeQAnything"]
+        Services["服务层 (17 个核心服务)<br/>agentExecutor | workflowExecutor | llmService<br/>sshService | reportService | schedulerService<br/>copilotService | enhancedRAGService<br/>encryptionService | notificationService<br/>multiAgentCollaboration | alertNoiseReduction<br/>rootCauseAnalysisService | auditService<br/>remediationService | backupService | credentialService<br/>+ 30+ 个辅助服务与适配器"]
         Middleware["中间件<br/>auth(JWT) | errorHandler | rateLimiter"]
         WS_Server["WebSocket 服务<br/>任务进度实时推送"]
-        DB_Model["数据模型<br/>database.ts (25 张表)"]
+        DB_Model["数据模型<br/>database.ts (44 张表)"]
 
         API --> Services
         API --- Middleware

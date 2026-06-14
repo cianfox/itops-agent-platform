@@ -504,13 +504,14 @@ docker volume rm itops-agent-platform_app-data
 
 ## 📚 相关文档
 
-- [项目 README](./README.md) — 项目总览和功能介绍
+- [项目 README](../README.md) — 项目总览和功能介绍
 - [快速部署指南](./QUICK_DEPLOY.md) — 更简化的部署步骤
-- [开发指南](./docs/DEVELOPMENT.md) — 本地开发环境搭建
-- [生产环境最佳实践](./docs/PRODUCTION.md) — 生产环境配置建议
-- [API 文档](./docs/API.md) — 完整的 API 接口文档
-- [架构设计](./docs/ARCHITECTURE.md) — 系统架构说明
-- [Zabbix 集成配置](./docs/ZABBIX_CONFIG.md) — 告警集成详细说明
+- [开发指南](./DEVELOPMENT.md) — 本地开发环境搭建
+- [生产环境最佳实践](./PRODUCTION.md) — 生产环境配置建议
+- [API 文档](./API.md) — 完整的 API 接口文档
+- [架构设计](./ARCHITECTURE.md) — 系统架构说明
+- [技术规范](./SPEC.md) — 技术规范文档
+- [Zabbix 集成配置](../examples/zabbix/ZABBIX_CONFIG.md) — 告警集成详细说明
 - [Web SSH 终端技术文档](./WEB_TERMINAL.md) — 远程终端功能说明
 
 ---

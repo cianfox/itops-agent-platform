@@ -36,6 +36,7 @@ coverage/
 # IDE & Editor
 .idea/
 .vscode/
+.trae/
 *.swp
 *.swo
 *~
@@ -48,6 +49,12 @@ Thumbs.db
 .cache/
 .temp/
 .tmp/
+
+# Docker runtime data
+backend-data/
+backend-logs/
+frontend-data/
+backend-logs.txt
 
 # TypeScript build info
 *.tsbuildinfo
