@@ -16,7 +16,6 @@ import v016DatabasesTable from './v016_databases_table';
 import v017ApprovalRequests from './v017_approval_requests';
 
 // ===== 新增迁移（合并自其他分支） =====
-import v002ConfigTemplates from './v002_config_templates';
 import v007CredentialsTable from './v007_credentials_table';
 import v016ToolLinks from './v016_tool_links';
 import v017ToolLinkImage from './v017_tool_link_image';
@@ -59,15 +58,6 @@ const v010SnmpChannel: Migration = {
 };
 
 // 版本号冲突的迁移重新编号（从 30 开始）
-const v030ConfigTemplates: Migration = {
-  id: '20250101000030',
-  version: 30,
-  name: 'config_templates_v2',
-  description: 'Config templates table (from v002, renumbered due to conflict)',
-  up: wrapAsync(v002ConfigTemplates.up),
-  down: wrapAsync(v002ConfigTemplates.down),
-};
-
 const v031CredentialsTable: Migration = {
   id: '20250101000031',
   version: 31,
@@ -242,7 +232,6 @@ export const ALL_MIGRATIONS: Migration[] = [
   v028DcLifecycleMigration,
   v029DcRoomMonitorMigration,
   // 重新编号的迁移（版本号冲突已解决）
-  v030ConfigTemplates,
   v031CredentialsTable,
   v032ToolLinks,
   v033ToolLinkImage,
