@@ -133,8 +133,14 @@ function evaluateRegex(resolvedExpr: string, variables: Record<string, unknown>)
     const value = String(parseValue(valueStr.trim(), variables));
     return new RegExp(pattern, flags).test(value);
   }
-  // 退化为包含检查
-  return !!resolvedExpr;
+  // 退化为在变量值中搜索该字符串
+  const resolvedLower = resolvedExpr.toLowerCase();
+  for (const [, val] of Object.entries(variables)) {
+    if (String(val).toLowerCase().includes(resolvedLower)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
