@@ -146,6 +146,41 @@ Three trends converging at this exact moment turn AI autonomous ops from "concep
 
 ---
 
+## 💰 Why This Story Deserves Investment
+
+### A $40 Billion Market Being Rewritten by AI
+
+Global IT operations market size: **$40B (2025)**, projected $70B by 2030. Every paradigm shift creates new champions:
+
+- Cloud shift → AWS ($2T market cap)
+- Monitoring shift → Datadog ($40B market cap)
+- Dev tools shift → GitLab ($14B IPO)
+- **Ops automation shift → ?**
+
+> **The question is not "will it happen," but "who will be the GitLab of this category."** The open-source AIOps leader position is vacant — this is a Winner-takes-most market.
+
+### What Would a $10B Open-Source Ops Platform Look Like?
+
+| GitLab, Back in 2014 | ITOps Agent Platform, Today |
+|----------------------|---------------------------|
+| Open-source alternative to GitHub | Open-source alternative to PagerDuty + Rundeck + Portainer |
+| Basic CI/CD only | 12 AI Agents + 68 API routes |
+| Nobody believed code hosting was a $10B market | **Nobody believes ops platforms are a $10B market** |
+
+> **GitLab went from open-source project to $14B IPO in 7 years.** Operations is a bigger market than code hosting — every company needs ops, not every company needs self-hosted Git. We stand at the earlier stage of a bigger market.
+
+### Three Irreversible Tailwinds
+
+| Tailwind | Why Irreversible |
+|----------|-----------------|
+| **AI capability explosion** | LLMs went from "toy" to "production-grade" in 2 years. Next: autonomous decision-making |
+| **Ops talent gap** | Senior ops engineers retiring + young talent avoiding 24/7 on-call = AI is the only answer |
+| **Open source eating enterprise software** | GitLab, Confluent, Grafana, HashiCorp — 5 open-source IPOs proving open-source beats proprietary |
+
+> **It's not a matter of "if" — it's a matter of "who."** When these three curves converge, AI autonomous ops is a mathematical certainty.
+
+---
+
 <img alt="platform-screenshot" src="docs-assets/0-3.gif" style="max-width: 100%;" />
 
 ---
@@ -286,6 +321,18 @@ Why can't other teams easily replicate this project?
 | **Command Safety Engine** | 7 categories of dangerous command policies + role-based permission matrix, ensuring AI-generated commands are safe for production |
 | **Multi-Model Failover Chain** | Primary model failure triggers automatic fallback to backup models, ensuring AI service high availability |
 | **32-Version Database Migration** | 32 schema iterations of stable evolution, engineering maturity far beyond demo-level projects |
+
+### Scalability Economics: The Power of Open-Source Business Models
+
+| Metric | Traditional Ops SaaS | ITOps Agent Open-Source Model |
+|--------|:---:|:---:|
+| Customer Acquisition Cost | Sales-driven, $10,000+ per enterprise | **≈ $0 (community-driven + developer word-of-mouth)** |
+| Marginal Service Cost | Grows linearly with user count | **≈ $0 (self-hosted)** |
+| Network Effects | Weak | **Strong (more Agents → stronger platform → larger community)** |
+| Ecosystem Lock-in | Contract expires, can migrate | **Knowledge base + Agent marketplace + workflow templates (deep integration)** |
+| Monetization Flexibility | Subscription only | **Enterprise / SaaS / Support / Agent marketplace / Training & certification** |
+
+> Open source isn't "free" — it's zero-cost customer acquisition, then monetization on the 5-10% of enterprise users with willingness to pay. This path has been validated by GitLab ($14B), Confluent ($12B), and Grafana ($6B).
 
 ## 🗺️ Future Roadmap
 
@@ -499,6 +546,22 @@ We believe:
 - **Every ops engineer deserves to be freed from alert storms**, to spend time with family and pursue what they truly love
 
 > If you also believe the future of ops is AI autonomy, join us. **A Star is the greatest recognition. Every issue filed brings this vision one step closer.**
+
+---
+
+## 🔭 If You're an Investor
+
+> **"We are building the autonomous operating system for IT operations."**
+>
+> 50 million ops engineers worldwide manage $40 billion in IT infrastructure. Today, they still get woken up at 3 AM to manually fix servers.
+>
+> We are turning ops from "humans operating tools" into "humans designing strategy, AI executing autonomously." This is not a feature upgrade — it's a paradigm shift.
+>
+> The open-source AIOps leader position is vacant. We lead all comparable projects across 35 dimensions. A $40B market × AI disruption × open-source distribution × first-mover advantage — this is a once-in-a-decade window.
+>
+> GitLab went from open-source project to $14B IPO in 7 years. Operations is a bigger market than code hosting — every company needs ops, not every company needs self-hosted Git. We stand at the earlier stage of a bigger market.
+
+> The project is iterating continuously. Every Star is a vote for the future.
 
 ---
 
