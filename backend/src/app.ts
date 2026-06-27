@@ -78,6 +78,13 @@ import { queueService } from './services/queueService';
 import { alertAutoResponseService } from './services/alertAutoResponse/alertAutoResponseService';
 import { dockerService } from './services/dockerService';
 import { configTemplateService } from './services/configTemplateService';
+import { composeService } from './services/composeService';
+import { registryService } from './services/registryService';
+import { kubernetesService } from './services/kubernetesService';
+import { autoScaleService } from './services/autoScaleService';
+import { vmMigrationService } from './services/vmMigrationService';
+import { vmSnapshotSchedulerService } from './services/vmSnapshotSchedulerService';
+import { multiHostDockerService } from './services/multiHostDockerService';
 import importExportRouter from './routes/importExportRoutes';
 import alertAutoRouter from './routes/alertAutoRoutes';
 import linkageRouter from './routes/linkageRoutes';
@@ -103,6 +110,8 @@ import kubernetesRoutes from './routes/kubernetesRoutes';
 import autoScaleRoutes from './routes/autoScaleRoutes';
 import costAnalysisRoutes from './routes/costAnalysisRoutes';
 import vmMigrationRoutes from './routes/vmMigrationRoutes';
+
+import networkSubnetRoutes from './routes/networkSubnetRoutes';
 
 const app = express();
 const httpServer = createServer(app);
@@ -187,6 +196,15 @@ async function initializeApp() {
   
   // Initialize config template service
   configTemplateService.init();
+
+  // Initialize P0-P3 container & VM management services (ensure DB tables)
+  composeService.ensureTables();
+  registryService.ensureTables();
+  kubernetesService.ensureTables();
+  autoScaleService.ensureTables();
+  vmMigrationService.ensureTables();
+  vmSnapshotSchedulerService.ensureTables();
+  multiHostDockerService.ensureTables();
   
   initTokenBlacklist();
   startCircuitBreakerCleanup();
@@ -322,6 +340,7 @@ app.use('/api/snapshot-policies', rateLimiter, snapshotPolicyRoutes);
 app.use('/api/registries', rateLimiter, registryRoutes);
 app.use('/api/kubernetes', rateLimiter, kubernetesRoutes);
 app.use('/api/auto-scale', rateLimiter, autoScaleRoutes);
+app.use('/api/network-subnets', rateLimiter, networkSubnetRoutes);
 app.use('/api/cost-analysis', rateLimiter, costAnalysisRoutes);
 app.use('/api/vm-migrations', rateLimiter, vmMigrationRoutes);
 

@@ -118,8 +118,8 @@ export default function DataRoom3D() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0f1a);
-    scene.fog = new THREE.FogExp2(0x0a0f1a, 0.006);
+    scene.background = new THREE.Color(0x141e2d);
+    scene.fog = new THREE.FogExp2(0x141e2d, 0.003);
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(45, w/h, 0.1, 200);
@@ -127,14 +127,14 @@ export default function DataRoom3D() {
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-    renderer.setClearColor(0x0a0f1a, 1);
+    renderer.setClearColor(0x141e2d, 1);
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.8;
+    renderer.toneMappingExposure = 1.3;
     rendererRef.current = renderer;
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -145,8 +145,8 @@ export default function DataRoom3D() {
     controlsRef.current = controls;
 
     // ===== 灯光系统（对齐监控大屏） =====
-    scene.add(new THREE.AmbientLight(0x667788, 0.5));
-    const mainLight = new THREE.DirectionalLight(0xddeeff, 1.0);
+    scene.add(new THREE.AmbientLight(0x8899aa, 0.9));
+    const mainLight = new THREE.DirectionalLight(0xddeeff, 1.4);
     mainLight.position.set(20,40,20); mainLight.castShadow = true;
     mainLight.shadow.mapSize.width = 2048; mainLight.shadow.mapSize.height = 2048;
     mainLight.shadow.camera.left = -50; mainLight.shadow.camera.right = 50;
@@ -154,44 +154,44 @@ export default function DataRoom3D() {
     mainLight.shadow.camera.near = 1; mainLight.shadow.camera.far = 100;
     mainLight.shadow.bias = -0.001;
     scene.add(mainLight);
-    const dl1 = new THREE.DirectionalLight(0x6688aa, 0.3); dl1.position.set(-25,20,0); scene.add(dl1);
-    const dl2 = new THREE.DirectionalLight(0x7799bb, 0.2); dl2.position.set(25,20,0); scene.add(dl2);
-    const dl3 = new THREE.DirectionalLight(0xffffff, 0.4); dl3.position.set(0,50,0); scene.add(dl3);
-    const dl4 = new THREE.DirectionalLight(0x445566, 0.2); dl4.position.set(0,15,-30); scene.add(dl4);
-    const dl5 = new THREE.DirectionalLight(0x556677, 0.15); dl5.position.set(0,10,30); scene.add(dl5);
+    const dl1 = new THREE.DirectionalLight(0x6688aa, 0.5); dl1.position.set(-25,20,0); scene.add(dl1);
+    const dl2 = new THREE.DirectionalLight(0x7799bb, 0.4); dl2.position.set(25,20,0); scene.add(dl2);
+    const dl3 = new THREE.DirectionalLight(0xffffff, 0.6); dl3.position.set(0,50,0); scene.add(dl3);
+    const dl4 = new THREE.DirectionalLight(0x445566, 0.3); dl4.position.set(0,15,-30); scene.add(dl4);
+    const dl5 = new THREE.DirectionalLight(0x556677, 0.25); dl5.position.set(0,10,30); scene.add(dl5);
 
     // 彩色氛围光
     const addPoint = (color:number,intensity:number,distance:number,x:number,y:number,z:number) => {
       const pl = new THREE.PointLight(color, intensity, distance);
       pl.position.set(x,y,z); scene.add(pl);
     };
-    addPoint(0x00d4ff, 1.2, 60, -12, 10, 0);
-    addPoint(0x00d4ff, 1.2, 60, 12, 10, 0);
-    addPoint(0x4488ff, 0.8, 50, 0, 12, 0);
-    addPoint(0x00ff88, 0.4, 40, 0, 8, -20);
-    addPoint(0x6644ff, 0.3, 50, 0, 15, -15);
-    addPoint(0xff8844, 0.3, 40, 0, 6, 15);
-    addPoint(0x00d4ff, 0.6, 30, 0, 6, -15);
-    addPoint(0x00d4ff, 0.6, 30, 0, 6, 15);
-    scene.add(new THREE.HemisphereLight(0x556677, 0x0a1018, 0.3));
+    addPoint(0x00d4ff, 1.5, 60, -12, 10, 0);
+    addPoint(0x00d4ff, 1.5, 60, 12, 10, 0);
+    addPoint(0x4488ff, 1.0, 50, 0, 12, 0);
+    addPoint(0x00ff88, 0.5, 40, 0, 8, -20);
+    addPoint(0x6644ff, 0.4, 50, 0, 15, -15);
+    addPoint(0xff8844, 0.4, 40, 0, 6, 15);
+    addPoint(0x00d4ff, 0.8, 30, 0, 6, -15);
+    addPoint(0x00d4ff, 0.8, 30, 0, 6, 15);
+    scene.add(new THREE.HemisphereLight(0x667788, 0x1a2535, 0.6));
 
     // ===== 防静电架空地板 =====
     const tileCount = 40;
     const tileCanvas = document.createElement('canvas');
     tileCanvas.width = 256; tileCanvas.height = 256;
     const tctx = tileCanvas.getContext('2d')!;
-    tctx.fillStyle = '#1e2530';
+    tctx.fillStyle = '#4a5a6a';
     tctx.fillRect(0, 0, 256, 256);
     for (let tx = 0; tx < 256; tx += 2) {
       for (let ty = 0; ty < 256; ty += 2) {
-        const noise = Math.random() * 5 - 2.5;
-        tctx.fillStyle = `rgb(${Math.max(0,Math.min(255,30+noise))},${Math.max(0,Math.min(255,37+noise))},${Math.max(0,Math.min(255,48+noise))})`;
+        const noise = Math.random() * 6 - 3;
+        tctx.fillStyle = `rgb(${Math.max(0,Math.min(255,74+noise))},${Math.max(0,Math.min(255,90+noise))},${Math.max(0,Math.min(255,106+noise))})`;
         tctx.fillRect(tx, ty, 2, 2);
       }
     }
-    tctx.strokeStyle = '#0a0e14'; tctx.lineWidth = 2;
+    tctx.strokeStyle = '#3a4a5a'; tctx.lineWidth = 2;
     tctx.strokeRect(1, 1, 254, 254);
-    tctx.strokeStyle = 'rgba(45,58,75,0.3)'; tctx.lineWidth = 1;
+    tctx.strokeStyle = 'rgba(100,140,170,0.5)'; tctx.lineWidth = 1;
     [64,128,192].forEach(pos => {
       tctx.beginPath(); tctx.moveTo(pos,4); tctx.lineTo(pos,252); tctx.stroke();
       tctx.beginPath(); tctx.moveTo(4,pos); tctx.lineTo(252,pos); tctx.stroke();
@@ -201,18 +201,18 @@ export default function DataRoom3D() {
     tileTex.repeat.set(tileCount, tileCount);
     tileTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
     const floorMat = new THREE.MeshPhysicalMaterial({
-      map: tileTex, color: 0x1e2530,
-      metalness: 0.1, roughness: 0.75,
-      clearcoat: 0.05, clearcoatRoughness: 0.9,
+      map: tileTex, color: 0x9eada8,
+      metalness: 0.05, roughness: 0.6,
+      clearcoat: 0.1, clearcoatRoughness: 0.8,
     });
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), floorMat);
     floor.rotation.x = -Math.PI / 2;
     floor.receiveShadow = true;
     scene.add(floor);
-    // 底部暗色遮罩
+    // 底部浅色基底
     const baseFloor = new THREE.Mesh(
       new THREE.PlaneGeometry(90, 90),
-      new THREE.MeshStandardMaterial({ color: 0x050a10, roughness: 1 })
+      new THREE.MeshStandardMaterial({ color: 0x6b7b76, roughness: 1 })
     );
     baseFloor.rotation.x = -Math.PI / 2;
     baseFloor.position.y = -0.01;
@@ -630,7 +630,7 @@ export default function DataRoom3D() {
 
   // ===== 渲染仪表盘 UI =====
   if (loading) {return (
-    <div className="flex items-center justify-center h-full bg-[#060a14]">
+    <div className="flex items-center justify-center h-full bg-[#0d1825]">
       <div className="flex flex-col items-center gap-4">
         <div className="w-12 h-12 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
         <p className="text-cyan-400 text-sm tracking-widest animate-pulse">构建数字孪生场景...</p>
@@ -641,7 +641,7 @@ export default function DataRoom3D() {
   const summary = overview?.summary || { totalDevices: 0, onlineDevices: 0, alertDevices: 0, offlineDevices: 0, avgTemp: 0, avgHumidity: 0, totalRacks: 0 };
 
   return (
-    <div className="relative w-full h-full bg-[#0a0f1a] overflow-hidden">
+    <div className="relative w-full h-full bg-[#0d1825] overflow-hidden">
       {/* 网格背景叠加 - 对齐监控大屏效果 */}
       <div className="absolute inset-0 z-0 pointer-events-none" style={{
         backgroundImage: 'linear-gradient(rgba(0,245,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,255,0.015) 1px, transparent 1px)',
@@ -697,50 +697,55 @@ export default function DataRoom3D() {
         {timeStr} · ☀ 25°C 晴朗
       </div>
 
-      {/* 底部紧凑指标条 */}
-      <div className="absolute bottom-3 left-3 right-3 z-20">
-        <div className="grid grid-cols-10 gap-1">
-          {[
-            { icon:'⚡', label:'PUE', value: (overview?.pue || 0).toFixed(2), color:'text-cyan-400' },
-            { icon:'🔌', label:'功耗', value: `${(overview?.totalPower || 0).toFixed(1)}kW`, color:'' },
-            { icon:'❄', label:'制冷', value: `${(overview?.coolingPower || 0).toFixed(1)}kW`, color:'text-cyan-400' },
-            { icon:'💻', label:'IT', value: `${(overview?.itPower || 0).toFixed(1)}kW`, color:'' },
-            { icon:'🌡', label:'温度', value: `${(summary.avgTemp||24.5).toFixed(1)}°C`, color:'text-green-400' },
-            { icon:'💧', label:'湿度', value: `${summary.avgHumidity||45}%`, color:'text-cyan-400' },
-            { icon:'🖥', label:'设备', value: (summary.totalDevices||0).toLocaleString(), color:'' },
-            { icon:'✅', label:'在线', value: (summary.onlineDevices||0).toLocaleString(), color:'text-green-400' },
-            { icon:'⚠', label:'告警', value: summary.alertDevices||0, color:'text-orange-400' },
-            { icon:'❌', label:'离线', value: summary.offlineDevices||0, color:'text-red-400' },
-          ].map((m,i) => (
-            <div key={i} className="bg-[#0a0e1a]/70 backdrop-blur border border-cyan-500/10 rounded-md py-1 px-1 text-center">
-              <div className="text-[10px] leading-tight">{m.icon}</div>
-              <div className={`text-xs font-bold ${m.color || 'text-gray-200'}`}>{m.value}</div>
-            </div>
-          ))}
+      {/* 底部紧凑指标条 - 固定浮层 */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 w-[95%] max-w-[1200px]">
+        <div className="bg-[#0a1420]/85 backdrop-blur-md border border-cyan-500/15 rounded-xl px-4 py-2.5 shadow-lg shadow-cyan-500/5">
+          <div className="grid grid-cols-10 gap-2">
+            {[
+              { icon:'⚡', label:'PUE', value: (overview?.pue || 0).toFixed(2), color:'text-cyan-400' },
+              { icon:'🔌', label:'总功', value: `${(overview?.totalPower || 0).toFixed(1)}kW`, color:'text-gray-300' },
+              { icon:'❄', label:'制冷', value: `${(overview?.coolingPower || 0).toFixed(1)}kW`, color:'text-cyan-400' },
+              { icon:'💻', label:'IT', value: `${(overview?.itPower || 0).toFixed(1)}kW`, color:'text-gray-300' },
+              { icon:'🌡', label:'温度', value: `${(summary.avgTemp||24.5).toFixed(1)}°C`, color:'text-green-400' },
+              { icon:'💧', label:'湿度', value: `${summary.avgHumidity||45}%`, color:'text-cyan-400' },
+              { icon:'🖥', label:'设备', value: (summary.totalDevices||0).toLocaleString(), color:'text-gray-300' },
+              { icon:'✅', label:'在线', value: (summary.onlineDevices||0).toLocaleString(), color:'text-green-400' },
+              { icon:'⚠', label:'告警', value: summary.alertDevices||0, color:'text-orange-400' },
+              { icon:'❌', label:'离线', value: summary.offlineDevices||0, color:'text-red-400' },
+            ].map((m,i) => (
+              <div key={i} className="text-center group hover:bg-white/5 rounded-lg py-1 transition-colors">
+                <div className="text-[11px] leading-tight mb-0.5">{m.icon}</div>
+                <div className={`text-xs font-bold font-mono ${m.color || 'text-gray-300'}`}>{m.value}</div>
+                <div className="text-[9px] text-slate-500 mt-0.5">{m.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* 操作提示 — 精简 */}
-      <div className="absolute bottom-[52px] left-3 z-20 bg-[#0a0e1a]/70 backdrop-blur border border-gray-800 rounded px-2 py-0.5 text-[9px] text-text-tertiary">
+      {/* 操作提示 */}
+      <div className="absolute bottom-[88px] left-4 z-20 bg-[#0a1420]/80 backdrop-blur border border-gray-700/50 rounded-md px-2.5 py-1 text-[10px] text-slate-400">
         🖱 旋转/缩放/平移 | 👆 点击机柜
       </div>
 
-      {/* 实时告警条 - 底部 */}
-      <div className="absolute bottom-[144px] left-3 right-3 z-20 bg-black/30 border border-red-500/10 rounded-lg overflow-hidden">
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-red-500/5 border-b border-red-500/10">
+      {/* 实时告警条 - 右侧悬浮 */}
+      <div className="absolute top-16 right-4 z-20 w-[280px] bg-[#0a1420]/90 backdrop-blur-md border border-red-500/15 rounded-xl overflow-hidden shadow-lg shadow-red-500/5">
+        <div className="flex items-center gap-2 px-3 py-2 bg-red-500/5 border-b border-red-500/10">
           <span className="text-xs">🔔</span>
           <span className="text-xs font-semibold text-red-400">实时告警</span>
-          <span className="text-[10px] bg-red-500/20 text-red-400 px-1.5 rounded-full">{alertsList.length}</span>
+          <span className="ml-auto text-[10px] bg-red-500/20 text-red-400 px-1.5 rounded-full font-mono">{alertsList.length}</span>
         </div>
-        <div className="h-7 overflow-hidden px-3">
+        <div className="h-6 overflow-hidden px-3 py-1">
           <div className="animate-scroll-up flex gap-4 items-center h-full">
-            {alertsList.map((a,i) => (
+            {alertsList.length > 0 ? alertsList.map((a,i) => (
               <span key={i} className="text-[11px] whitespace-nowrap">
-                <span className="text-text-tertiary">{a.time}</span>
-                <span className="text-text-tertiary mx-1">|</span>
+                <span className="text-slate-500">{a.time}</span>
+                <span className="text-slate-600 mx-1">|</span>
                 <span className={a.type==='error'?'text-red-400':a.type==='warn'?'text-orange-400':'text-cyan-400'}>{a.msg}</span>
               </span>
-            ))}
+            )) : (
+              <span className="text-[11px] text-slate-500 whitespace-nowrap">暂无告警信息</span>
+            )}
           </div>
         </div>
       </div>
