@@ -159,15 +159,13 @@ Global IT operations market size: **$40B (2025)**, projected $70B by 2030. Every
 
 > **The question is not "will it happen," but "who will be the GitLab of this category."** The open-source AIOps leader position is vacant — this is a Winner-takes-most market.
 
-### What Would a $10B Open-Source Ops Platform Look Like?
-
 | GitLab, Back in 2014 | ITOps Agent Platform, Today |
 |----------------------|---------------------------|
 | Open-source alternative to GitHub | Open-source alternative to PagerDuty + Rundeck + Portainer |
 | Basic CI/CD only | 12 AI Agents + 68 API routes |
 | Nobody believed code hosting was a $10B market | **Nobody believes ops platforms are a $10B market** |
 
-> **GitLab went from open-source project to $14B IPO in 7 years.** Operations is a bigger market than code hosting — every company needs ops, not every company needs self-hosted Git. We stand at the earlier stage of a bigger market.
+> ITOps Agent Platform stands at the earlier stage of a bigger market.
 
 ### Three Irreversible Tailwinds
 
@@ -312,8 +310,6 @@ graph TB
 
 ## 🔬 Technical Moat
 
-Why can't other teams easily replicate this project?
-
 | Moat | Description |
 |------|-------------|
 | **12-Agent Collaborative Scheduling** | Not a single AI API call — a complex distributed system with Agent division of labor + collaboration + arbitration |
@@ -322,7 +318,7 @@ Why can't other teams easily replicate this project?
 | **Multi-Model Failover Chain** | Primary model failure triggers automatic fallback to backup models, ensuring AI service high availability |
 | **32-Version Database Migration** | 32 schema iterations of stable evolution, engineering maturity far beyond demo-level projects |
 
-### Scalability Economics: The Power of Open-Source Business Models
+### Open-Source Model: Scalability Advantage
 
 | Metric | Traditional Ops SaaS | ITOps Agent Open-Source Model |
 |--------|:---:|:---:|
@@ -332,7 +328,7 @@ Why can't other teams easily replicate this project?
 | Ecosystem Lock-in | Contract expires, can migrate | **Knowledge base + Agent marketplace + workflow templates (deep integration)** |
 | Monetization Flexibility | Subscription only | **Enterprise / SaaS / Support / Agent marketplace / Training & certification** |
 
-> Open source isn't "free" — it's zero-cost customer acquisition, then monetization on the 5-10% of enterprise users with willingness to pay. This path has been validated by GitLab ($14B), Confluent ($12B), and Grafana ($6B).
+> The core advantage of the open-source model lies in customer acquisition efficiency and scalability, validated by major open-source projects in the industry. This provides a solid foundation for long-term sustainable development.
 
 ## 🗺️ Future Roadmap
 
@@ -549,7 +545,7 @@ We believe:
 
 ---
 
-## 🔭 If You're an Investor
+## 🔭 Long-Term Vision
 
 > **"We are building the autonomous operating system for IT operations."**
 >
