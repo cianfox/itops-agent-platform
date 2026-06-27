@@ -4,7 +4,7 @@
 
 **Important License Change Notice (2026-05-27)**
 
-Effective May 27, 2026, all new code submissions are open-sourced under the **Mozilla Public License 2.0 (MPL-2.0)**. Code submitted before 16:00, May 27, 2026 remains under the original MIT license. Closed-source derivative works, packaged sales, and SaaS operations are prohibited. This project is permanently open-source.
+Effective May 27, 2026, all new code submissions are open-sourced under the **Mozilla Public License 2.0 (MPL-2.0)**. Code submitted before 16:00, May 27, 2026 remains under the original MIT license. Closed-source derivative works, packaged sales, and SaaS operations are prohibited. This project is permanently open-source. It belongs to thousands of engineers who embrace the open-source spirit, not a single company.
 
 👤 Author: Tan Ce | IT Online
 
@@ -146,6 +146,39 @@ Three trends converging at this exact moment turn AI autonomous ops from "concep
 
 ---
 
+## 💰 Why This Story Deserves Investment
+
+### A $40 Billion Market Being Rewritten by AI
+
+Global IT operations market size: **$40B (2025)**, projected $70B by 2030. Every paradigm shift creates new champions:
+
+- Cloud shift → AWS ($2T market cap)
+- Monitoring shift → Datadog ($40B market cap)
+- Dev tools shift → GitLab ($14B IPO)
+- **Ops automation shift → ?**
+
+> **The question is not "will it happen," but "who will be the GitLab of this category."** The open-source AIOps leader position is vacant — this is a Winner-takes-most market.
+
+| GitLab, Back in 2014 | ITOps Agent Platform, Today |
+|----------------------|---------------------------|
+| Open-source alternative to GitHub | Open-source alternative to PagerDuty + Rundeck + Portainer |
+| Basic CI/CD only | 12 AI Agents + 68 API routes |
+| Nobody believed code hosting was a $10B market | **Nobody believes ops platforms are a $10B market** |
+
+> ITOps Agent Platform stands at the earlier stage of a bigger market.
+
+### Three Irreversible Tailwinds
+
+| Tailwind | Why Irreversible |
+|----------|-----------------|
+| **AI capability explosion** | LLMs went from "toy" to "production-grade" in 2 years. Next: autonomous decision-making |
+| **Ops talent gap** | Senior ops engineers retiring + young talent avoiding 24/7 on-call = AI is the only answer |
+| **Open source eating enterprise software** | GitLab, Confluent, Grafana, HashiCorp — 5 open-source IPOs proving open-source beats proprietary |
+
+> **It's not a matter of "if" — it's a matter of "who."** When these three curves converge, AI autonomous ops is a mathematical certainty.
+
+---
+
 <img alt="platform-screenshot" src="docs-assets/0-3.gif" style="max-width: 100%;" />
 
 ---
@@ -275,10 +308,6 @@ graph TB
 
 ---
 
-## 🔬 Technical Moat
-
-Why can't other teams easily replicate this project?
-
 | Moat | Description |
 |------|-------------|
 | **12-Agent Collaborative Scheduling** | Not a single AI API call — a complex distributed system with Agent division of labor + collaboration + arbitration |
@@ -286,6 +315,18 @@ Why can't other teams easily replicate this project?
 | **Command Safety Engine** | 7 categories of dangerous command policies + role-based permission matrix, ensuring AI-generated commands are safe for production |
 | **Multi-Model Failover Chain** | Primary model failure triggers automatic fallback to backup models, ensuring AI service high availability |
 | **32-Version Database Migration** | 32 schema iterations of stable evolution, engineering maturity far beyond demo-level projects |
+
+### Open-Source Model: Scalability Advantage
+
+| Metric | Traditional Ops SaaS | ITOps Agent Open-Source Model |
+|--------|:---:|:---:|
+| Customer Acquisition Cost | Sales-driven, $10,000+ per enterprise | **≈ $0 (community-driven + developer word-of-mouth)** |
+| Marginal Service Cost | Grows linearly with user count | **≈ $0 (self-hosted)** |
+| Network Effects | Weak | **Strong (more Agents → stronger platform → larger community)** |
+| Ecosystem Lock-in | Contract expires, can migrate | **Knowledge base + Agent marketplace + workflow templates (deep integration)** |
+| Monetization Flexibility | Subscription only | **Enterprise / SaaS / Support / Agent marketplace / Training & certification** |
+
+> The core advantage of the open-source model lies in customer acquisition efficiency and scalability, validated by major open-source projects in the industry. This provides a solid foundation for long-term sustainable development.
 
 ## 🗺️ Future Roadmap
 
@@ -499,6 +540,22 @@ We believe:
 - **Every ops engineer deserves to be freed from alert storms**, to spend time with family and pursue what they truly love
 
 > If you also believe the future of ops is AI autonomy, join us. **A Star is the greatest recognition. Every issue filed brings this vision one step closer.**
+
+---
+
+## 🔭 Long-Term Vision
+
+> **"We are building the autonomous operating system for IT operations."**
+>
+> 50 million ops engineers worldwide manage $40 billion in IT infrastructure. Today, they still get woken up at 3 AM to manually fix servers.
+>
+> We are turning ops from "humans operating tools" into "humans designing strategy, AI executing autonomously." This is not a feature upgrade — it's a paradigm shift.
+>
+> The open-source AIOps leader position is vacant. We lead all comparable projects across 35 dimensions. A $40B market × AI disruption × open-source distribution × first-mover advantage — this is a once-in-a-decade window.
+>
+> GitLab went from open-source project to $14B IPO in 7 years. Operations is a bigger market than code hosting — every company needs ops, not every company needs self-hosted Git. We stand at the earlier stage of a bigger market.
+
+> The project is iterating continuously. Every Star is a vote for the future.
 
 ---
 
